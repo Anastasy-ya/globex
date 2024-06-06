@@ -1,0 +1,126 @@
+/* global */
+@import url("../../vendor/normalize.css");
+@import url("../../vendor/fonts/fonts.css");
+
+/* * {
+  border: 0.5px solid red;
+} */
+
+:root {
+  /* var(--dark-grey) */
+  --dark-grey: rgba(38, 44, 64, 1);
+  /* var(--grey) */
+  --grey: rgba(212, 222, 254, 1);
+  /* var(--light-grey) */
+  --light-grey: rgba(129, 137, 163, 1);
+  /* var(--overlay) */
+  --overlay: rgba(188, 195, 208, 0.5);
+}
+
+.root {
+  min-height: 100vh;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  scroll-behavior: smooth;
+}
+
+p,
+a,
+h1,
+h2,
+h3,
+h4,
+article,
+button,
+input,
+label,
+span,
+ul,
+li {
+  font-family: "ProximaNova", "Arial", "sans-serif";
+  font-style: normal;
+  margin: 0;
+  padding: 0;
+  font-optical-sizing: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  text-rendering: optimizeSpeed;
+  line-height: 1.5;
+}
+
+p {
+  text-align: justify;
+}
+
+/* Расстояние только между параграфами, не снаружи */
+p + p {
+  margin-top: 0;
+  text-indent: 2em;
+}
+
+/* Удаляем все анимации и переходы для людей, которые предпочитай их не использовать */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/*стили автозаполнения*/
+/* :-webkit-autofill,
+:-webkit-autofill:hover, 
+:-webkit-autofill:focus {
+  border-bottom: 2px solid var(--blue);
+  -webkit-text-fill-color: white;
+  -webkit-box-shadow: 0 0 0px 1000px var(--main-background) inset;
+  transition: background-color 5000s ease-in-out 0.2s;
+}
+
+input:focus {
+  border-bottom: 2px solid var(--blue);
+} */
+
+/* стилизация кнопок при наведении */
+button:enabled {
+  /* Состояние до модификации */
+  transition: all 0.5s linear;
+  cursor: pointer;
+}
+
+button:enabled:hover {
+  /*по наведению*/
+  opacity: 0.8;
+}
+
+:any-link {
+  text-decoration: none;
+}
+
+input:invalid {
+  color: red;
+}
+
+ul {
+  list-style: none;
+}
+
+/* App styles */
+
+.page {
+  min-width: 100vw;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  column-gap: 32px;
+  overflow: hidden;
+}
