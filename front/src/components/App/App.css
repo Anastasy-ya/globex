@@ -33,12 +33,11 @@ p {
 }
 
 /*стили автозаполнения*/
-/* :-webkit-autofill,
+:-webkit-autofill,
 :-webkit-autofill:hover, 
 :-webkit-autofill:focus {
-  border-bottom: 2px solid var(--blue);
   -webkit-text-fill-color: white;
-  -webkit-box-shadow: 0 0 0px 1000px var(--main-background) inset;
+  -webkit-box-shadow: 0 0 0px 1000px #BCC3D0 inset;
   transition: background-color 5000s ease-in-out 0.2s;
 }
 
