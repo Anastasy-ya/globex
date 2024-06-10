@@ -2,21 +2,6 @@
 @import url("../../vendor/normalize.css");
 @import url("../../vendor/fonts/fonts.css");
 
-/* * {
-  border: 0.5px solid red;
-} */
-
-:root {
-  /* var(--dark-grey) */
-  --dark-grey: rgba(38, 44, 64, 1);
-  /* var(--grey) */
-  --grey: rgba(212, 222, 254, 1);
-  /* var(--light-grey) */
-  --light-grey: rgba(129, 137, 163, 1);
-  /* var(--overlay) */
-  --overlay: rgba(188, 195, 208, 0.5);
-}
-
 .root {
   min-height: 100vh;
 }
@@ -27,44 +12,15 @@ body {
   scroll-behavior: smooth;
 }
 
-p,
-a,
-h1,
-h2,
-h3,
-h4,
-article,
-button,
-input,
-label,
-span,
-ul,
-li {
-  font-family: "ProximaNova", "Arial", "sans-serif";
-  font-style: normal;
-  margin: 0;
-  padding: 0;
-  font-optical-sizing: auto;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-text-size-adjust: 100%;
-  -ms-text-size-adjust: 100%;
-  -moz-text-size-adjust: 100%;
-  text-rendering: optimizeSpeed;
-  line-height: 1.5;
-}
-
 p {
   text-align: justify;
 }
 
 /* Расстояние только между параграфами, не снаружи */
-p + p {
+/* p + p {
   margin-top: 0;
   text-indent: 2em;
-}
+} */
 
 /* Удаляем все анимации и переходы для людей, которые предпочитай их не использовать */
 @media (prefers-reduced-motion: reduce) {
@@ -86,14 +42,10 @@ p + p {
   transition: background-color 5000s ease-in-out 0.2s;
 }
 
-input:focus {
-  border-bottom: 2px solid var(--blue);
-} */
-
 /* стилизация кнопок при наведении */
 button:enabled {
   /* Состояние до модификации */
-  transition: all 0.5s linear;
+  transition: all 0.5s ease;
   cursor: pointer;
 }
 
@@ -106,8 +58,8 @@ button:enabled:hover {
   text-decoration: none;
 }
 
-input:invalid {
-  color: red;
+*:focus {
+  outline: none;
 }
 
 ul {
