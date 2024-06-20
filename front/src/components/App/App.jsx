@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import CustomizedInput from '../SearchInput/SearchInput';
 import ProductGrid from '../ProductGrid/ProductGrid';
 import Popup from '../Popup/Popup';
-import PopupContent from "../PopupContent/PopupContent";
-import { theme } from "../../theme";
+import PopupContent from '../PopupContent/PopupContent';
+import { theme } from '../../theme';
 import { ThemeProvider } from '@mui/material/styles';
 import {
   Box,
@@ -13,6 +13,16 @@ import {
 function App() {
   const [isOpenPopup, setIsOpenPopup] = useState(false);
   const [cards, setCards] = React.useState([]);
+  const [selectedCard, setSelectedCard] = React.useState({
+    id: '',
+    name: '',
+    telephone: '',
+    mail: '',
+    visitDate: '',
+    jobTitle: '',
+    department: '',
+    additionalInformation: '',
+  });
 
   useEffect(() => { //заготовка для отправки запроса на серсер за карточками
     if (cards.length === 0) {
@@ -22,16 +32,25 @@ function App() {
       //   .then((persons) => {
       //     
       //     setCards(persons);
-      //     localStorage.setItem("persons", JSON.stringify(persons))
+      //     localStorage.setItem('persons', JSON.stringify(persons))
       // })
       // .catch(console.error)
     }
   }, [cards])
 
-  function handleOpenClosePopup() {
+  function handleOpenClosePopup(person) {
     setIsOpenPopup(!isOpenPopup);
-
-    document.querySelector(".popup").classList.toggle("popup_opened");
+    setSelectedCard(person ? person : {
+      id: '',
+      name: '',
+      telephone: '',
+      mail: '',
+      visitDate: '',
+      jobTitle: '',
+      department: '',
+      additionalInformation: '',
+    })
+    document.querySelector('.popup').classList.toggle('popup_opened');
 
     // fix background
     if (!isOpenPopup) {
@@ -48,24 +67,24 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <div className="root">
-        <div className="page">
+      <div className='root'>
+        <div className='page'>
           <Box
-            component="section"
+            component='section'
             sx={{
-              maxWidth: "1280px",
-              minWidth: "300px",
-              margin: "0 auto",
-              width: "100%",
-              padding: { xs: "64px 10px", sm: "64px 80px" },
-              boxSizing: "border-box",
+              maxWidth: '1280px',
+              minWidth: '300px',
+              margin: '0 auto',
+              width: '100%',
+              padding: { xs: '64px 10px', sm: '64px 80px' },
+              boxSizing: 'border-box',
             }}
           >
             <Popup
               isOpen={isOpenPopup}
               handleOpenClosePopup={handleOpenClosePopup}
             >
-              <PopupContent/>
+              <PopupContent selectedCard={selectedCard}/>
             </Popup>
             <CustomizedInput></CustomizedInput>
             <ProductGrid

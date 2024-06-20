@@ -44,7 +44,10 @@ function Popup({ isOpen, handleOpenClosePopup, id, children }) {
             minHeight: "468px",
             backgroundColor: "white",
             borderRadius: "16px",
-            boxSizing: "border-box"
+            boxSizing: "border-box",
+            display: "flex",
+            flexDirection: "column",
+            gap: "40px",
           }}
         >
 

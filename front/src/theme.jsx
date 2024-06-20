@@ -14,13 +14,35 @@ export const theme = createTheme({
     mozTextSizeAdjust: "100%",
     textRendering: "optimizeSpeed",
     lineHeight: "1.5",
+    h2: {
+      fontWeight: 700,
+      color: '#262C40',
+      fontSize: '24px',
+      lineHeight: '30px',
+      textAlign: 'left',
+    },
+    body1: {
+      fontWeight: 400,
+      color: '#262C40',
+      fontSize: '18px',
+      lineHeight: '24px',
+      textAlign: 'left',
+    },
+    body2: {
+      fontWeight: 400,
+      color: '#8189A3',
+      fontSize: '16px',
+      lineHeight: '18px',
+      textAlign: 'left',
+      // fontFamily: "ProximaNova, Arial, sans-serif",
+    },
   },
   palette: {
     primary: {
       main: "#8189A3",
       darkGrey: "#262C40",
       lightGrey: "#D4DEFE",
-      overlay: "rgba(188, 195, 208, .5)",
+      overlay: "rgba(188, 195, 208, .3)",
 
     },
   },

@@ -51,7 +51,7 @@ export default function CustomizedInput() {
               transition: "background-color .5s",
             }
           }}
-          
+
         />
         <IconButton
           alt="Найти сотрудника"

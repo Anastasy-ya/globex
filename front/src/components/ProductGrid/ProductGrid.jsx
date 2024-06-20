@@ -19,15 +19,15 @@ export default function ProductGrid(props) {
     setButtonDiv(element);
   }, []);
 
-  const handleClick = (e) => {
+  const handleClick = (e, person) => {
 
     e.preventDefault();
-    props.handleOpenClosePopup();
+    props.handleOpenClosePopup(person);
 
   };
 
   // Симуляция клика по событию Enter с клавиатуры
-  const handleKeyDown = (e) => {
+  const handleKeyDown = (e, person) => {
     if (e.key === 'Enter') {
 
       props.handleOpenClosePopup();
@@ -50,8 +50,8 @@ export default function ProductGrid(props) {
         <Grid
           role="button"
           aria-label="Подробнее"
-          onClick={(e) => handleClick(e)}
-          onKeyDown={(e) => handleKeyDown(e)}
+          onClick={(e) => handleClick(e, person)}
+          onKeyDown={(e) => handleKeyDown(e, person)}
           item
           tabIndex="0"
           key={person.id}
