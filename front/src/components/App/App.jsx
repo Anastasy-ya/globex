@@ -1,99 +1,90 @@
 import React, { useState, useEffect } from 'react';
-import './App.css';
+import '../styles/Global.css';
 import CustomizedInput from '../SearchInput/SearchInput';
 import ProductGrid from '../ProductGrid/ProductGrid';
 import Popup from '../Popup/Popup';
 import PopupContent from '../PopupContent/PopupContent';
-import { theme } from '../../theme';
+import { theme } from '../styles/theme';
 import { ThemeProvider } from '@mui/material/styles';
-import {
-  Box,
-} from '@mui/material';
+import { Box } from '@mui/material';
 
-function App() {
-  const [isOpenPopup, setIsOpenPopup] = useState(false);
-  const [cards, setCards] = React.useState([]);
-  const [selectedCard, setSelectedCard] = React.useState({
-    id: '',
-    name: '',
-    telephone: '',
-    mail: '',
-    visitDate: '',
-    jobTitle: '',
-    department: '',
-    additionalInformation: '',
-  });
+// Initial state for selectedCard
+const initialSelectedCard = {
+  id: '',
+  name: '',
+  telephone: '',
+  mail: '',
+  visitDate: '',
+  jobTitle: '',
+  department: '',
+  additionalInformation: '',
+};
 
-  useEffect(() => { //заготовка для отправки запроса на серсер за карточками
-    if (cards.length === 0) {
-      // console.log('карточек нема')
-      // MainApi
-      //   .getPersons()
-      //   .then((persons) => {
-      //     
-      //     setCards(persons);
-      //     localStorage.setItem('persons', JSON.stringify(persons))
-      // })
-      // .catch(console.error)
-    }
-  }, [cards])
+// Custom hook for handling popup state
+const usePopup = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [selectedCard, setSelectedCard] = useState(initialSelectedCard);
 
-  function handleOpenClosePopup(person) {
-    setIsOpenPopup(!isOpenPopup);
-    setSelectedCard(person ? person : {
-      id: '',
-      name: '',
-      telephone: '',
-      mail: '',
-      visitDate: '',
-      jobTitle: '',
-      department: '',
-      additionalInformation: '',
-    })
-    document.querySelector('.popup').classList.toggle('popup_opened');
+  const togglePopup = (person = initialSelectedCard) => {
+    setIsOpen(!isOpen);
+    setSelectedCard(person);
+    // document.querySelector('.popup').classList.toggle('popup_opened');
 
-    // fix background
-    if (!isOpenPopup) {
-      document.body.style.position = 'fixed';
-      document.body.style.width = '100%';
-    } else {
-      document.body.style.position = '';
-      // default value
-      document.body.style.width = 'auto';
-    }
+    // if (window.innerWidth < 500) {
+      document.body.style.position = isOpen ? '' : 'fixed';
+      document.body.style.width = isOpen ? 'auto' : '100%';
+    // }
   };
 
+  return { isOpen, selectedCard, togglePopup };
+};
 
+const fetchCards = (setCards) => {
+  // Fetch cards from server
+  // MainApi.getPersons().then(persons => {
+  //   setCards(persons);
+  //   localStorage.setItem('persons', JSON.stringify(persons));
+  // }).catch(console.error);
+};
+
+function App() {
+  const [cards, setCards] = useState([]);
+  const { isOpen, selectedCard, togglePopup } = usePopup();
+
+  useEffect(() => {
+    if (cards.length === 0) {
+      fetchCards(setCards);
+    }
+  }, [cards]);
 
   return (
     <ThemeProvider theme={theme}>
-      <div className='root'>
-        <div className='page'>
-          <Box
-            component='section'
-            sx={{
-              maxWidth: '1280px',
-              minWidth: '300px',
-              margin: '0 auto',
-              width: '100%',
-              padding: { xs: '64px 10px', sm: '64px 80px' },
-              boxSizing: 'border-box',
-            }}
-          >
-            <Popup
-              isOpen={isOpenPopup}
-              handleOpenClosePopup={handleOpenClosePopup}
-            >
-              <PopupContent selectedCard={selectedCard}/>
-            </Popup>
-            <CustomizedInput></CustomizedInput>
-            <ProductGrid
-              handleOpenClosePopup={handleOpenClosePopup}
-              isOpen={isOpenPopup}
-            ></ProductGrid>
-          </Box>
-        </div>
-      </div>
+      <Box sx={{
+        minWidth: '100vw',
+        minHeight: '100vh',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '32px',
+        overflow: 'hidden',
+      }}>
+        <Box
+          component='section'
+          sx={{
+            maxWidth: '1280px',
+            minWidth: '300px',
+            margin: '0 auto',
+            width: '100%',
+            padding: { xs: '64px 10px', sm: '64px 80px' },
+            boxSizing: 'border-box',
+          }}
+        >
+          <Popup isOpen={isOpen} handleOpenClosePopup={togglePopup}>
+            <PopupContent selectedCard={selectedCard} />
+          </Popup>
+          <CustomizedInput />
+          <ProductGrid handleOpenClosePopup={togglePopup} isOpen={isOpen} />
+        </Box>
+      </Box>
     </ThemeProvider>
   );
 }

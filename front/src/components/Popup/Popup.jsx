@@ -1,14 +1,12 @@
-import React from "react";
-import usePopupClose from "../hooks/usePopupClose";
-import closeIcon from "../../images/close-icon.svg";
+import React from 'react';
+import usePopupClose from '../hooks/usePopupClose';
+import CloseButton from '../CloseButton/CloseButton';
 import {
-  Paper,
   Box,
-  IconButton
+  Card
 } from '@mui/material';
 
-/* Не было времени разобраться с Popover, TODO: переделать в элемент mui*/
-function Popup({ isOpen, handleOpenClosePopup, id, children }) {
+function Popup({ isOpen, handleOpenClosePopup, children }) {
 
   usePopupClose({ isOpen, handleOpenClosePopup });
 
@@ -16,63 +14,51 @@ function Popup({ isOpen, handleOpenClosePopup, id, children }) {
     <>
       <Box
         sx={{
-          position: "fixed",
+          position: 'fixed',
           top: 0,
           bottom: 0,
           left: 0,
           right: 0,
-          backgroundColor: "primary.overlay",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          transition: "visibility .5s linear, opacity .5s linear",
+          backgroundColor: 'primary.overlay',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          transition: 'visibility .5s linear, opacity .5s linear',
           opacity: isOpen ? 1 : 0,
-          visibility: isOpen ? "visible" : "hidden",
+          visibility: isOpen ? 'visible' : 'hidden',
           zIndex: 3,
+          '@media (max-width: 600px)': {
+            alignItems: 'flex-start',
+          }
         }}
         /* Доп класс для управления открытием/закрытием попапа */
-        className={`${isOpen ? "popup popup_opened" : "popup"
+        className={`${isOpen ? 'popup popup_opened' : 'popup'
           }`}
       >
 
-        <Paper elevation={0}
+        <Card elevation={0}
           sx={{
-            p: "24px",
+            p: '24px',
             zIndex: 4,
-            position: "relative",
-            width: "500px",
-            minHeight: "468px",
-            backgroundColor: "white",
-            borderRadius: "16px",
-            boxSizing: "border-box",
-            display: "flex",
-            flexDirection: "column",
-            gap: "40px",
+            position: 'relative',
+            width: '100%',
+            maxWidth: '500px', //
+            minHeight: '468px',
+            backgroundColor: 'white',
+            borderRadius: '16px',
+            boxSizing: 'border-box',
+            boxShadow: '0 0 20px rgba(0, 0, 0, .2)',
+            '@media (max-width: 600px)': {
+              mt: 1,
+              overflowY: 'auto',
+              maxHeight: 'calc(100vh - 32px)',
+            }
           }}
         >
-
-          <IconButton
-            type="button"
-            aria-label="Закрыть"
-            onClick={handleOpenClosePopup}
-            sx={{
-              width: "25px",
-              height: "25px",
-              backgroundImage: `url(${closeIcon})`,
-              backgroundPosition: "center",
-              backgroundSize: "76%",
-              position: "fixed",
-              right: { xs: "50%", sm: "calc(50% - 225px)" },
-              backgroundRepeat: "no-repeat",
-            }}
-          >
-          </IconButton>
-
+          <CloseButton
+            handleOpenClosePopup={handleOpenClosePopup}></CloseButton>
           {children}
-
-        </Paper>
-
-
+        </Card>
       </Box>
     </>
   );
