@@ -36,26 +36,26 @@ export default function PopupContent({ selectedCard }) {
           <Typography variant='body1' sx={{ width: '137px' }}>Телефон:</Typography>
         </Grid>
         <Grid item xs={12} sm={7}>
-          <Typography variant='body2' sx={{ width: '275px' }}>{selectedCard.telephone || 'Номер телефона'}</Typography>
+          <Typography variant='body2' sx={{ width: '275px' }}>{selectedCard.phone || 'Номер телефона'}</Typography>
         </Grid>
         <Grid item xs={8} sm={5}>
           <Typography variant='body1' sx={{ width: '137px' }}>Почта:</Typography>
         </Grid>
         <Grid item xs={12} sm={7}>
           {/* перенос длинных неразрывных слов без тире*/}
-          <Typography variant='body2' sx={{ wordBreak: 'break-all', width: '275px' }}>{selectedCard.mail || 'E-mail адрес'}</Typography>
+          <Typography variant='body2' sx={{ wordBreak: 'break-all', width: '275px' }}>{selectedCard.email || 'E-mail адрес'}</Typography>
         </Grid>
         <Grid item xs={12} sm={5}>
           <Typography variant='body1' sx={{ width: '137px' }}>Дата приёма:</Typography>
         </Grid>
         <Grid item xs={12} sm={7}>
-          <Typography variant='body2' sx={{ width: '275px' }}>{selectedCard.visitDate || 'Дата визита'}</Typography>
+          <Typography variant='body2' sx={{ width: '275px' }}>{selectedCard.hire_date || 'Дата визита'}</Typography>
         </Grid>
         <Grid item xs={12} sm={5}>
           <Typography variant='body1' sx={{ width: '137px' }}>Должность:</Typography>
         </Grid>
         <Grid item xs={12} sm={7}>
-          <Typography variant='body2' sx={{ width: '275px' }}>{selectedCard.jobTitle || 'Название должности'}</Typography>
+          <Typography variant='body2' sx={{ width: '275px' }}>{selectedCard.position_name || 'Название должности'}</Typography>
         </Grid>
         <Grid item xs={12} sm={5}>
           <Typography variant='body1' sx={{ width: '137px' }}>Подразделение:</Typography>

@@ -1,33 +1,19 @@
-import React, { useEffect } from 'react';
-import {
-  Grid,
-  Card,
-  CardContent,
-  Icon,
-  Box,
-  Typography
-} from '@mui/material';
+import React, { useRef } from 'react';
+import { Grid, Card, CardContent, Icon, Box, Typography } from '@mui/material';
 import mailIcon from '../../images/mail-icon.svg';
 import phoneIcon from '../../images/phone-icon.svg';
-import { persons } from '../config/consts';
 
 export default function ProductGrid(props) {
-  const [buttonDiv, setButtonDiv] = React.useState(null);
+  const buttonDivRef = useRef(null);
 
-  useEffect(() => {
-    const element = document.getElementById('infoButton');
-    setButtonDiv(element);
-  }, []);
-
-  const handleClick = (e, person) => {
+  const handleClick = (e, card) => {
     e.preventDefault();
-    props.handleOpenClosePopup(person);
+    props.handleOpenClosePopup(card);
   };
 
-  // Симуляция клика по событию Enter с клавиатуры
-  const handleKeyDown = (e, person) => {
+  const handleKeyDown = (e, card) => {
     if (e.key === 'Enter') {
-      buttonDiv.dispatchEvent(new Event('click', { bubbles: true, cancelable: true }));
+      handleClick(e, card);
     }
   };
 
@@ -41,16 +27,16 @@ export default function ProductGrid(props) {
       }}
       width='100%'
     >
-      {persons.map((person) => (
+      {props.cards.map((card, index) => (
         <Grid
           role='button'
-          aria-label={`Подробнее о ${person.name}`}
-          onClick={(e) => handleClick(e, person)}
-          onKeyDown={(e) => handleKeyDown(e, person)}
+          aria-label={`Подробнее о ${card.name}`}
+          onClick={(e) => handleClick(e, card)}
+          onKeyDown={(e) => handleKeyDown(e, card)}
           item
           tabIndex='0'
-          key={person.id}
-          id='infoButton'
+          key={card.id || index} // Используйте индекс как запасной ключ, если id отсутствует
+          ref={buttonDivRef}
           sx={{
             cursor: 'pointer',
             maxWidth: 357,
@@ -65,7 +51,6 @@ export default function ProductGrid(props) {
         >
           <Card
             elevation={0}
-            key={person.id}
             sx={{
               boxShadow: '0 0 20px rgba(0, 0, 0, .2)', /* TODO theme colors */
               borderRadius: '16px',
@@ -76,11 +61,11 @@ export default function ProductGrid(props) {
                 backgroundColor: 'primary.lightGrey',
                 transition: 'background-color .2s linear',
               },
-            }}>
-            <CardContent
-              sx={{ p: '24px' }}
-            >
-              <Typography variant='h2'
+            }}
+          >
+            <CardContent sx={{ p: '24px' }}>
+              <Typography
+                variant='h2'
                 sx={{
                   color: 'primary.darkGrey',
                   fontSize: '24px',
@@ -91,22 +76,24 @@ export default function ProductGrid(props) {
                   textOverflow: 'ellipsis',
                   whiteSpace: 'nowrap',
                   overflow: 'hidden',
-                  mb: '30px'
+                  mb: '30px',
                 }}
               >
-                {person.name}
+                {card.name}
               </Typography>
 
               <Box display='flex' gap='14px' sx={{ mb: '12px' }}>
-                <Icon> {/*TODO добавить alt */}
+                <Icon>
                   <Box
                     sx={{
                       width: '24px',
                       height: '24px',
                       backgroundImage: `url(${phoneIcon})`,
-
-                    }}>
-                  </Box>
+                      backgroundSize: 'cover',
+                      backgroundPosition: 'center',
+                    }}
+                    aria-label="Phone icon"
+                  ></Box>
                 </Icon>
 
                 <Typography
@@ -119,19 +106,22 @@ export default function ProductGrid(props) {
                     maxHeight: '20px',
                   }}
                 >
-                  {person.telephone}
+                  {card.phone}
                 </Typography>
               </Box>
 
               <Box display='flex' gap='14px'>
-                <Icon> {/*TODO добавить alt */}
+                <Icon>
                   <Box
                     sx={{
                       width: '24px',
                       height: '24px',
                       backgroundImage: `url(${mailIcon})`,
-                    }}>
-                  </Box>
+                      backgroundSize: 'cover',
+                      backgroundPosition: 'center',
+                    }}
+                    aria-label="Mail icon"
+                  ></Box>
                 </Icon>
                 <Typography
                   sx={{
@@ -141,13 +131,12 @@ export default function ProductGrid(props) {
                     lineHeight: '20px',
                     maxWidth: '226px',
                     maxHeight: '20px',
-                    /* Далее три свойства для многоточия в конце строки */
                     textOverflow: 'ellipsis',
                     whiteSpace: 'nowrap',
                     overflow: 'hidden',
                   }}
                 >
-                  {person.mail}
+                  {card.email}
                 </Typography>
               </Box>
 
@@ -157,4 +146,4 @@ export default function ProductGrid(props) {
       ))}
     </Grid>
   );
-};
+}

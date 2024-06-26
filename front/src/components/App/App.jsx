@@ -7,6 +7,7 @@ import PopupContent from '../PopupContent/PopupContent';
 import { theme } from '../styles/theme';
 import { ThemeProvider } from '@mui/material/styles';
 import { Box } from '@mui/material';
+import * as Api from '../Api/Api';
 
 // Initial state for selectedCard
 const initialSelectedCard = {
@@ -25,31 +26,35 @@ const usePopup = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState(initialSelectedCard);
 
-  const togglePopup = (person = initialSelectedCard) => {
+  const togglePopup = (card = initialSelectedCard) => {
     setIsOpen(!isOpen);
-    setSelectedCard(person);
-    // document.querySelector('.popup').classList.toggle('popup_opened');
+    setSelectedCard(card);
 
-    // if (window.innerWidth < 500) {
       document.body.style.position = isOpen ? '' : 'fixed';
-      document.body.style.width = isOpen ? 'auto' : '100%';
-    // }
   };
 
   return { isOpen, selectedCard, togglePopup };
 };
 
 const fetchCards = (setCards) => {
-  // Fetch cards from server
-  // MainApi.getPersons().then(persons => {
-  //   setCards(persons);
-  //   localStorage.setItem('persons', JSON.stringify(persons));
-  // }).catch(console.error);
+  Api.getCards().then(cards => {
+    setCards(cards);
+    try {
+      localStorage.setItem('cards', JSON.stringify(cards));
+    } catch (storageError) {
+      console.error('Error saving cards to localStorage:', storageError);
+    }
+  })
+  .catch(apiError => {
+    console.error('Error fetching cards:', apiError);
+  });
 };
 
 function App() {
-  const [cards, setCards] = useState([]);
+  const [cards, setCards] = useState(JSON.parse(localStorage.getItem('cards')) || []);
   const { isOpen, selectedCard, togglePopup } = usePopup();
+
+  console.log(cards)
 
   useEffect(() => {
     if (cards.length === 0) {
@@ -82,7 +87,7 @@ function App() {
             <PopupContent selectedCard={selectedCard} />
           </Popup>
           <CustomizedInput />
-          <ProductGrid handleOpenClosePopup={togglePopup} isOpen={isOpen} />
+          <ProductGrid handleOpenClosePopup={togglePopup} isOpen={isOpen} cards={cards} />
         </Box>
       </Box>
     </ThemeProvider>
