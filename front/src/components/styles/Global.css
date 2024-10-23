@@ -1,0 +1,59 @@
+@import url("../../vendor/normalize.css");
+@import url("../../vendor/fonts/fonts.css");
+
+.root {
+  min-height: 100vh;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  scroll-behavior: smooth;
+}
+
+p {
+  text-align: justify;
+}
+
+/* Удаляем все анимации и переходы для людей, которые предпочитай их не использовать */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/*стили автозаполнения*/
+:-webkit-autofill,
+:-webkit-autofill:hover,
+:-webkit-autofill:focus {
+  -webkit-text-fill-color: white;
+  -webkit-box-shadow: 0 0 0px 1000px #bcc3d0 inset;
+  transition: background-color 5000s ease-in-out 0.2s;
+}
+
+/* стилизация кнопок при наведении */
+button:enabled {
+  /* Состояние до модификации */
+  transition: all 0.5s ease;
+  cursor: pointer;
+}
+
+button:enabled:hover {
+  /*по наведению*/
+  opacity: 0.8;
+}
+
+:any-link {
+  text-decoration: none;
+}
+
+*:focus {
+  outline: none;
+}
+
+ul {
+  list-style: none;
+}
